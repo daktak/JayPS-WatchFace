@@ -135,6 +135,9 @@ void screen_reset_instant_data() {
   if (s_gpsdata.cadence != 255) {
     s_gpsdata.cadence = 0;
   }
+  if (s_gpsdata.power >= 0) {
+    s_gpsdata.power = 0;
+  }
   s_gpsdata.ascentrate = 0;
   s_gpsdata.speed100 = 0;
   copy_speed(s_data.speed, sizeof(s_data.speed), s_gpsdata.speed100);

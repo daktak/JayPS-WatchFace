@@ -31,6 +31,7 @@ uint8_t config_order[CONFIG_NB_FIELD_ORDER] = {
     FIELD_AVGSPEED,
     FIELD_BEARING,
     FIELD_CADENCE,
+    FIELD_POWER,
     FIELD_DISTANCE,
     FIELD_DURATION,
     FIELD_HEARTRATE,
@@ -101,6 +102,7 @@ const char *field_get_title(uint8_t field) {
 #endif
     case FIELD_HEARTRATE_GRAPH_ONLY: return _("Heartrate graph"); break;
     case FIELD_CADENCE: return _("Cadence"); break;
+    case FIELD_POWER: return _("Power"); break;
 #ifdef PRODUCTION
     case FIELD_TEMPERATURE: return _("Temperature"); break;
 #else
@@ -152,6 +154,7 @@ const char *field_get_text(uint8_t field) {
 #endif
       return s_data.heartrate; break;
     case FIELD_CADENCE: return s_data.cadence; break;
+    case FIELD_POWER: return s_data.power; break;
     case FIELD_TEMPERATURE: return s_data.temperature; break;
     case FIELD_TIME: return s_data.time; break;
 #ifdef PBL_HEALTH
@@ -214,6 +217,7 @@ const char *field_get_units(uint8_t field) {
 #else
     case FIELD_CADENCE: return "rpm"; break;
 #endif
+    case FIELD_POWER: return "w"; break;
     case FIELD_TEMPERATURE: return s_data.unitsTemperature; break;
     case FIELD_TIME: return ""; break;
 #ifdef PBL_HEALTH

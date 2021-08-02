@@ -109,6 +109,7 @@ enum {
   FIELD_AVGSPEED,
   FIELD_BEARING,
   FIELD_CADENCE,
+  FIELD_POWER,
   FIELD_DISTANCE,
   FIELD_DURATION,
   FIELD_HEARTRATE,
@@ -210,6 +211,7 @@ typedef struct AppData {
   //char nbascent[8];
   char heartrate[8];
   char cadence[8];
+  char power[8];
   char temperature[7];
   char steps[7];
   char steps_cadence[7];
@@ -257,6 +259,7 @@ typedef struct GPSData {
   uint16_t bearing;
   uint8_t heartrate;
   uint8_t cadence;
+  int16_t power;
   int16_t temperature10;
 
   uint16_t nav_next_distance1000;

@@ -36,6 +36,8 @@ enum {
   BYTE_MAXSPEED1 = 21,
   BYTE_MAXSPEED2 = 22,
   BYTE_CADENCE = 23,
+  BYTE_POWER1 = 24,
+  BYTE_POWER2 = 25,
 };
 
 enum {
@@ -452,6 +454,12 @@ void communication_in_received_callback(DictionaryIterator *iter, void *context)
                 strcpy(s_data.cadence, "-");
               }
             #endif
+            GET_DATA(s_gpsdata.power, BYTE_POWER1);
+	    if (s_gpsdata.power >= 0) {
+	      snprintf(s_data.power,  sizeof(s_data.power),  "%d",   s_gpsdata.power);
+	    } else {
+                strcpy(s_data.power, "-");
+            }
             if (s_gpsdata.time / 3600 > 0) {
               snprintf(s_data.elapsedtime,sizeof(s_data.elapsedtime),"%d:%.2d:%.2d", s_gpsdata.time / 3600, (s_gpsdata.time / 60) % 60, s_gpsdata.time % 60);
             } else {

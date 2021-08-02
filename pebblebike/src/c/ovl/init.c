@@ -51,6 +51,7 @@ void _ovl_init() {
   strcpy(s_data.maxspeed, "25.3");
   strcpy(s_data.heartrate, "128");
   strcpy(s_data.cadence, "90");
+  strcpy(s_data.power,"275");
 #endif
 #ifdef ENABLE_DEMO
   strcpy(s_data.maxspeed, "26.1");
@@ -84,6 +85,7 @@ void _ovl_init() {
   strcpy(s_data.maxspeed, "-");
   strcpy(s_data.heartrate, "-");
   strcpy(s_data.cadence, "-");
+  strcpy(s_data.power,"-");
   strcpy(s_data.nav_next_distance, "-");
   strcpy(s_data.nav_distance_to_destination, "-");
   strcpy(s_data.nav_ttd, "-");
