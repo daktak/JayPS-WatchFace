@@ -36,6 +36,15 @@ enum {
   BYTE_MAXSPEED1 = 21,
   BYTE_MAXSPEED2 = 22,
   BYTE_CADENCE = 23,
+  BYTE_POWER1 = 24,
+  BYTE_POWER2 = 25,
+  BYTE_AVGPOWER = 26,
+  BYTE_MAXPOWER1 = 27,
+  BYTE_MAXPOWER2 = 28,
+  BYTE_AVGPWR5 = 29,
+  BYTE_AVGPWR10 = 30,
+  BYTE_AVGPWR30 = 31,
+  BYTE_NPPWR30 = 32
 };
 
 enum {
@@ -465,6 +474,36 @@ void communication_in_received_callback(DictionaryIterator *iter, void *context)
                 strcpy(s_data.cadence, "-");
               }
             #endif
+
+            GET_DATA(s_gpsdata.power, BYTE_POWER1);
+	    if (s_gpsdata.power >= 0) {
+	      snprintf(s_data.power,  sizeof(s_data.power),  "%d",   s_gpsdata.power);
+	    } else {
+                strcpy(s_data.power, "-");
+            }
+
+            GET_DATA(s_gpsdata.maxpower, BYTE_MAXPOWER1);
+	    if (s_gpsdata.maxpower >= 0) {
+	      snprintf(s_data.maxpower,  sizeof(s_data.maxpower),  "%d",   s_gpsdata.maxpower);
+	    } else {
+                strcpy(s_data.maxpower, "-");
+            }
+
+            GET_DATA(s_gpsdata.avgpower, BYTE_AVGPOWER);
+	    snprintf(s_data.avgpower,  sizeof(s_data.avgpower),  "%d",   s_gpsdata.avgpower);
+
+            GET_DATA(s_gpsdata.avgpwr5, BYTE_AVGPWR5);
+	    snprintf(s_data.avgpwr5,  sizeof(s_data.avgpwr5),  "%d",   s_gpsdata.avgpwr5);
+
+            GET_DATA(s_gpsdata.avgpwr10, BYTE_AVGPWR10);
+	    snprintf(s_data.avgpwr10,  sizeof(s_data.avgpwr10),  "%d",   s_gpsdata.avgpwr10);
+
+            GET_DATA(s_gpsdata.avgpwr30, BYTE_AVGPWR30);
+	    snprintf(s_data.avgpwr30,  sizeof(s_data.avgpwr30),  "%d",   s_gpsdata.avgpwr30);
+
+            GET_DATA(s_gpsdata.nppwr30, BYTE_NPPWR30);
+            snprintf(s_data.nppwr30,  sizeof(s_data.nppwr30),  "%d",   s_gpsdata.nppwr30);
+
             if (s_gpsdata.time / 3600 > 0) {
               snprintf(s_data.elapsedtime,sizeof(s_data.elapsedtime),"%d:%.2d:%.2d", s_gpsdata.time / 3600, (s_gpsdata.time / 60) % 60, s_gpsdata.time % 60);
             } else {

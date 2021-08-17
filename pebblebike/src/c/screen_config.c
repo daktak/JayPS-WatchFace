@@ -31,6 +31,13 @@ uint8_t config_order[CONFIG_NB_FIELD_ORDER] = {
     FIELD_AVGSPEED,
     FIELD_BEARING,
     FIELD_CADENCE,
+    FIELD_POWER,
+    FIELD_AVGPOWER,
+    FIELD_MAXPOWER,
+    FIELD_AVGPWR5,
+    FIELD_AVGPWR10,
+    FIELD_AVGPWR30,
+    FIELD_NPPWR30,
     FIELD_DISTANCE,
     FIELD_DURATION,
     FIELD_HEARTRATE,
@@ -101,6 +108,13 @@ const char *field_get_title(uint8_t field) {
 #endif
     case FIELD_HEARTRATE_GRAPH_ONLY: return _("Heartrate graph"); break;
     case FIELD_CADENCE: return _("Cadence"); break;
+    case FIELD_POWER: return _("Power"); break;
+    case FIELD_AVGPOWER: return _("Average power"); break;
+    case FIELD_MAXPOWER: return _("Max power"); break;
+    case FIELD_AVGPWR5: return _("5s avg power"); break;
+    case FIELD_AVGPWR10: return _("10s avg power"); break;
+    case FIELD_AVGPWR30: return _("30s avg power"); break;
+    case FIELD_NPPWR30: return _("30s normalized power"); break;
 #ifdef PRODUCTION
     case FIELD_TEMPERATURE: return _("Temperature"); break;
 #else
@@ -152,6 +166,13 @@ const char *field_get_text(uint8_t field) {
 #endif
       return s_data.heartrate; break;
     case FIELD_CADENCE: return s_data.cadence; break;
+    case FIELD_POWER: return s_data.power; break;
+    case FIELD_AVGPOWER: return s_data.avgpower; break;
+    case FIELD_MAXPOWER: return s_data.maxpower; break;
+    case FIELD_AVGPWR5: return s_data.avgpwr5; break;
+    case FIELD_AVGPWR10: return s_data.avgpwr10; break;
+    case FIELD_AVGPWR30: return s_data.avgpwr30; break;
+    case FIELD_NPPWR30: return s_data.nppwr30; break;
     case FIELD_TEMPERATURE: return s_data.temperature; break;
     case FIELD_TIME: return s_data.time; break;
 #ifdef PBL_HEALTH
@@ -214,6 +235,14 @@ const char *field_get_units(uint8_t field) {
 #else
     case FIELD_CADENCE: return "rpm"; break;
 #endif
+    case FIELD_POWER: 
+    case FIELD_AVGPOWER:
+    case FIELD_MAXPOWER:
+    case FIELD_AVGPWR5:
+    case FIELD_AVGPWR10:
+    case FIELD_AVGPWR30:
+    case FIELD_NPPWR30:
+			return "w"; break;
     case FIELD_TEMPERATURE: return s_data.unitsTemperature; break;
     case FIELD_TIME: return ""; break;
 #ifdef PBL_HEALTH
