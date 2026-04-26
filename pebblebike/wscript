@@ -114,7 +114,7 @@ def get_overlay_length(elf_file):
         line=line[6:]
         columns=line.split()
         if columns[0].endswith("_ovl") and not columns[0].startswith(".") :
-            print columns[0], int(columns[4],16)
+            print(columns[0], int(columns[4],16))
             length = max(length, int(columns[4],16))
     # length += 0x100 - (length % 0x100)
     return length
@@ -153,11 +153,11 @@ def generate_final_ld_script(task):
     ovl_length  = get_overlay_length(task.inputs[1].abspath())
     app_length  = get_app_length(task.inputs[1].abspath())
 
-    print "----------------------------------------------------"
-    print "Overlay size = " + str(ovl_length) + ' bytes'
-    print "Not overlay size = " + str(app_length) + ' bytes'
-    print "Total footprint in RAM with overlays = " + str(strt_length + ovl_length + app_length) + ' bytes'
-    print "----------------------------------------------------"
+    print("----------------------------------------------------")
+    print("Overlay size = " + str(ovl_length) + ' bytes')
+    print("Not overlay size = " + str(app_length) + ' bytes')
+    print("Total footprint in RAM with overlays = " + str(strt_length + ovl_length + app_length) + ' bytes')
+    print("----------------------------------------------------")
  
     values = {
         'STRT_LENGTH'   : str(hex(strt_length)),
@@ -227,10 +227,6 @@ def build(ctx):
             bin_type='app',
             ldscript='build/{}/pebble_app_default.ld'.format(ctx.env.BUILD_DIR)
             )
-        for src in ctx.path.ant_glob('src/c/**/*.c') :   
-            ctx.add_manual_dependency(
-                src,
-                '{}/pebble_app_default.ld'.format(ctx.env.BUILD_DIR))
 
         # generate the final ld script
         ctx(
@@ -247,10 +243,6 @@ def build(ctx):
             bin_type='app',
             ldscript='build/{}/pebble_app_final.ld'.format(ctx.env.BUILD_DIR)
             )
-        for src in ctx.path.ant_glob('src/c/**/*.c') :   
-            ctx.add_manual_dependency(
-                src,
-                '{}/pebble_app_final.ld'.format(ctx.env.BUILD_DIR))
 
         if build_worker:
             worker_elf = '{}/pebble-worker.elf'.format(ctx.env.BUILD_DIR)
