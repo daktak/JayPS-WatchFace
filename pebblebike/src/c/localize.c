@@ -1,96 +1,91 @@
 #include <pebble.h>
 #include "config.h"
+  
+DictionaryIterator s_locale_dict;
 
-static DictionaryIterator s_locale_dict_storage;
-static uint8_t *s_dict_buffer = NULL;
 
 void locale_init(void) {
 #ifdef ENABLE_LOCALIZE_FORCE
-  const char *locale_str = ENABLE_LOCALIZE_FORCE;
+  //hard-coded for testing
+  const char* locale_str = ENABLE_LOCALIZE_FORCE;
 #else
-  const char *locale_str = i18n_get_system_locale();
+  // Detect system locale
+  const char* locale_str = i18n_get_system_locale();
 #endif
-
-  ResHandle locale_handle = resource_get_handle(RESOURCE_ID_LOCALE_ENGLISH);
-  int locale_size = resource_size(locale_handle);
+  ResHandle locale_handle = NULL;
+  int locale_size = 0;
 
   if (strncmp(locale_str, "fr", 2) == 0) {
     locale_handle = resource_get_handle(RESOURCE_ID_LOCALE_FRENCH);
+    locale_size = resource_size(locale_handle);
   } else if (strncmp(locale_str, "es", 2) == 0) {
     locale_handle = resource_get_handle(RESOURCE_ID_LOCALE_SPANISH);
+    locale_size = resource_size(locale_handle);
   } else if (strncmp(locale_str, "de", 2) == 0) {
     locale_handle = resource_get_handle(RESOURCE_ID_LOCALE_GERMAN);
+    locale_size = resource_size(locale_handle);
   } else if (strncmp(locale_str, "it", 2) == 0) {
     locale_handle = resource_get_handle(RESOURCE_ID_LOCALE_ITALIAN);
+    locale_size = resource_size(locale_handle);
   } else if (strncmp(locale_str, "ja", 2) == 0) {
     locale_handle = resource_get_handle(RESOURCE_ID_LOCALE_JAPANESE);
+    locale_size = resource_size(locale_handle);
   }
 
-  locale_size = resource_size(locale_handle);
+  // Fallback to English for unlocalized languages (0 byte files)
+  if (locale_size == 0) {
+    locale_handle = resource_get_handle(RESOURCE_ID_LOCALE_ENGLISH);
+    locale_size = resource_size(locale_handle);
+  }
 
-  int offset = 0;
-  int entries = 0;
+  int resource_offset = 0;
+  int locale_entries = 0;
+  resource_offset += resource_load_byte_range(locale_handle, resource_offset, 
+      (uint8_t*)&locale_entries, sizeof(locale_entries));
 
-  offset += resource_load_byte_range(
-      locale_handle,
-      offset,
-      (uint8_t *)&entries,
-      sizeof(entries));
-
-  typedef struct {
+  struct locale {
     int32_t hashval;
     int32_t strlen;
-  } locale_entry_t;
+  } locale_info;
 
-  int dict_size = locale_size + (7 * entries);
+  int dict_buffer_size = locale_size + 7 * locale_entries; //7 byte header per item
+  //APP_LOG(APP_LOG_LEVEL_DEBUG, "dict_buffer_size=%d", dict_buffer_size);
+  char *dict_buffer = malloc(dict_buffer_size);
+  dict_write_begin(&s_locale_dict, (uint8_t*)dict_buffer, dict_buffer_size);
 
-  s_dict_buffer = malloc(dict_size);
-  if (!s_dict_buffer) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Locale alloc failed");
-    return;
-  }
-
-  dict_write_begin(&s_locale_dict_storage, s_dict_buffer, dict_size);
-
-  for (int i = 0; i < entries; i++) {
-    locale_entry_t entry;
-
-    offset += resource_load_byte_range(
-        locale_handle,
-        offset,
-        (uint8_t *)&entry,
-        sizeof(entry));
-
-    char *buffer = malloc(entry.strlen + 1);
-    if (!buffer) {
-      continue;
-    }
-
-    offset += resource_load_byte_range(
-        locale_handle,
-        offset,
-        (uint8_t *)buffer,
-        entry.strlen);
-
-    buffer[entry.strlen] = '\0';
-
-    dict_write_cstring(&s_locale_dict_storage,
-                       entry.hashval,
-                       buffer);
-
+  for (int i = 0; i < locale_entries; i++) {
+    resource_offset += resource_load_byte_range(locale_handle,
+                                                resource_offset,
+                                                (uint8_t*)&locale_info,
+                                                sizeof(struct locale));
+    char *buffer = malloc(locale_info.strlen);
+    resource_offset += resource_load_byte_range(locale_handle,
+                                                resource_offset,
+                                                (uint8_t*)buffer,
+                                                locale_info.strlen);
+    dict_write_cstring(&s_locale_dict, locale_info.hashval, buffer);
     free(buffer);
   }
 
-  dict_write_end(&s_locale_dict_storage);
+  dict_write_end(&s_locale_dict);
 }
 
-const char *locale_str(int hashval) {
-  Tuple *tuple = dict_find(&s_locale_dict_storage, hashval);
+char *locale_str(int hashval) {
+  Tuple *tuple = dict_find(&s_locale_dict, hashval);
 
-  if (!tuple || !tuple->value) {
+  if (!tuple) {
     return "";
   }
 
-  // SAFE access: treat as Pebble dict API intended usage
-  return tuple->value->cstring ? tuple->value->cstring : "";
+  if (tuple->type != TUPLE_CSTRING) {
+    return "";
+  }
+
+  const char *str = tuple->value->cstring;
+
+  if (!str || str[0] == '\0') {
+    return "";
+  }
+
+  return (char *)str;
 }
