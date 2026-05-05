@@ -30,7 +30,7 @@ jobs:
       - name: install pebble
         run: uv tool install pebble-tool
       - name: install sdk
-        run: pebble sdk install latest
+        run: pebble sdk install 4.9.148
       - name: mkdir
         run: mkdir resources/data -p
         working-directory: ./pebblebike
