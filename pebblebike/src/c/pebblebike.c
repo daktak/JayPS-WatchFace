@@ -17,8 +17,6 @@
 #include "screen_config.h"
 #include "graph.h"
 
-#include "overlord.h"
-#include "overlays.h"
 #include "ovl/init.h"
 
 
@@ -160,7 +158,6 @@ void bt_callback(bool connected) {
 }
 
 static void init(void) {
-  overlay_load(OVL_INIT_OVL);
   _ovl_init();
 
   // callbacks cannot be in the overlay, register them here

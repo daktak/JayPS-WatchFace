@@ -12,8 +12,6 @@
 #include "screen_config.h"
 #include "ovl/screen_config.h"
 
-#include "overlord.h"
-#include "overlays.h"
 #include "ovl/menu.h"
 
 
@@ -115,7 +113,6 @@ void next_page(bool rotation) {
     action_bar_layer_set_icon(action_bar, BUTTON_ID_DOWN, menu_button);
     screen_map_layer_deinit();
   } else if (s_data.page_number == PAGE_MAP) {
-    overlay_load(OVL_MAP_OVL);
     screen_map_layer_init(s_data.window);
     action_bar_layer_set_icon(action_bar, BUTTON_ID_DOWN, zoom_button);
   }
@@ -168,7 +165,6 @@ void handle_bottombutton_click(ClickRecognizerRef recognizer, void *context) {
     config_change_type(CONFIG_CHANGE_TYPE_NEXT);
   } else {
     need_launch_config = false;
-    overlay_load(OVL_MENU_OVL);
     menu_init();
     menu_show();
   }
@@ -184,7 +180,6 @@ void handle_bottombutton_longclick(ClickRecognizerRef recognizer, void *context)
     screen_map_zoom_in(2);
   } else if (s_data.page_number == PAGE_DATA || s_data.page_number == PAGE_ALTITUDE) {
     if (config_screen == CONFIG_SCREEN_DISABLED) {
-      overlay_load(OVL_CONFIG_OVL);
       config_start();
     } else {
       config_stop();

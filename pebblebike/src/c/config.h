@@ -39,8 +39,6 @@
 #define ENABLE_NAVIGATION
 #define ENABLE_MAP_SKIP_POINT_OUTSIDE
 
-#define ENABLE_OVERLAYS
-
 //#ifndef PBL_SDK_2
 #ifdef _PBL_API_EXISTS_app_glance_reload
 //#if PBL_API_EXISTS(app_glance_reload)
@@ -73,42 +71,20 @@
   //#define DEBUG_REPLACE_CADENCE_BY_HEARTRATE
 #endif
 
-#ifdef ENABLE_OVERLAYS
-  //#define ENABLE_FUNCTION_LIVE
- // Heart zones in menu > 740 bytes
-  #define ENABLE_MENU_HEART_ZONES
-  // don't deinit objects in deinit -- save at least 700 bytes
- // #define ENABLE_APP_DEINIT
-  #define ENABLE_ROTATION
-  #define ENABLE_NAVIGATION_FULL
+#define NAV_NB_POINTS 20
+#ifdef ENABLE_NAVIGATION_FULL
+  // 5 * 256
+  #define NAV_NB_POINTS_STORAGE 1280
+#else
+  #define NAV_NB_POINTS_STORAGE NAV_NB_POINTS
 #endif
 
-
-#define NAV_NB_POINTS 20
-#ifdef ENABLE_OVERLAYS
-  #define ENABLE_NAVIGATION_FULL
-  #if PBL_PLATFORM_APLITE
-    #define MAP_NUM_POINTS 200
-    #define NAV_NB_POINTS_STORAGE 200
-  #else
-    #define MAP_NUM_POINTS 1500
-    #define NAV_NB_POINTS_STORAGE 1280
-  #endif
+// 4 Bytes/point
+// to compute correct values, use DEMO mode, cycle through all screens including menu
+#if PBL_PLATFORM_APLITE
+  #define MAP_NUM_POINTS 100
 #else
-  #ifdef ENABLE_NAVIGATION_FULL
-    // 5 * 256
-    #define NAV_NB_POINTS_STORAGE 1280
-  #else
-    #define NAV_NB_POINTS_STORAGE NAV_NB_POINTS
-  #endif
-
-  // 4 Bytes/point
-  // to compute correct values, use DEMO mode, cycle through all screens including menu
-  #if PBL_PLATFORM_APLITE
-    #define MAP_NUM_POINTS 100
-  #else
-    #define MAP_NUM_POINTS 1500
-  #endif
+  #define MAP_NUM_POINTS 1500
 #endif
 
 #ifdef ENABLE_LOGS
