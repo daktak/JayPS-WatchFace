@@ -1,6 +1,6 @@
 {
   "name": "JayPS",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "author": "Nic & Jay",
   "private": true,
   "dependencies": {},
@@ -8,6 +8,16 @@
     "pebble-app"
   ],
   "pebble": {
+     "companionApp": {
+      "android": {
+        "url": "https://github.com/daktak/jayps-AndroidApp",
+        "apps": [
+          {
+            "package": "com.njackson"
+          }
+        ]
+      }
+    },
     "projectType": "native",
     "uuid": "5dd35873-3bb6-44d6-8255-0e61bc3b97f5",
     "messageKeys": {},
@@ -123,7 +133,8 @@
     "targetPlatforms": [
       "basalt",
       "chalk",
-      "diorite"
+      "diorite",
+      "flint"
     ],
     "capabilities": [
       "health"
