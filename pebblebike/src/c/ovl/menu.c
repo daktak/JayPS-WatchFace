@@ -192,7 +192,7 @@ void init_settings_window()
   // Section "About"
   i = 0;
   menu_section2_items[i++] = (SimpleMenuItem) {
-    .title = "JayPS",
+    .title = "KayPS",
     .subtitle = VERSION_TEXT,
   };
   menu_section2_items[i++] = (SimpleMenuItem) {

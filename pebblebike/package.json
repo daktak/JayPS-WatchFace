@@ -1,7 +1,7 @@
 {
-  "name": "JayPS",
-  "version": "3.2.0",
-  "author": "Nic & Jay",
+  "name": "KayPS",
+  "version": "3.3.0",
+  "author": "daktak",
   "private": true,
   "dependencies": {},
   "keywords": [
@@ -19,10 +19,10 @@
       }
     },
     "projectType": "native",
-    "uuid": "5dd35873-3bb6-44d6-8255-0e61bc3b97f5",
+    "uuid": "86fe80bd-bb25-41e6-9a79-c74b5445a6b6",
     "messageKeys": {},
     "enableMultiJS": false,
-    "displayName": "JayPS 3.0.0",
+    "displayName": "KayPS",
     "watchapp": {
       "onlyShownOnCommunication": false,
       "hiddenApp": false,
