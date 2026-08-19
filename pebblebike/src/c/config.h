@@ -5,8 +5,8 @@
 
 #define PRODUCTION
 #define VERSION_PEBBLE 400
-#define VERSION_TEXT "Version 3.0.0"
-#define APP_COMPANY "Nic & Jay"
+#define VERSION_TEXT "3.3.0"
+#define APP_COMPANY "daktak"
 
 ////////////////////////////////////////////////////////////////////////////////
 // uncomment to enable specific functions (note: will be disable for PRODUCTION)
