@@ -20,10 +20,10 @@
 #include "ovl/init.h"
 
 
-#if defined(PBL_PLATFORM_CHALK) || defined(PBL_PLATFORM_EMERY)
+#if defined(PBL_PLATFORM_CHALK) || defined(PBL_PLATFORM_EMERY) || defined(PBL_PLATFORM_GABBRO)
 GFont font_roboto_bold_16;
 #endif
-#ifdef PBL_PLATFORM_EMERY
+#if defined(PBL_PLATFORM_EMERY) || defined(PBL_PLATFORM_GABBRO)
 GFont font_roboto_bold_20;
 GFont font_roboto_bold_26;
 GFont font_roboto_bold_28;
@@ -223,10 +223,10 @@ static void deinit(void) {
 
   buttons_deinit();
 
-#if defined(PBL_PLATFORM_CHALK) || defined(PBL_PLATFORM_EMERY)
+#if defined(PBL_PLATFORM_CHALK) || defined(PBL_PLATFORM_EMERY) || defined(PBL_PLATFORM_GABBRO)
   fonts_unload_custom_font(font_roboto_bold_16);
 #endif
-#ifdef PBL_PLATFORM_EMERY
+#if defined(PBL_PLATFORM_EMERY) || defined(PBL_PLATFORM_GABBRO)
   fonts_unload_custom_font(font_roboto_bold_20);
   fonts_unload_custom_font(font_roboto_bold_26);
   fonts_unload_custom_font(font_roboto_bold_28);

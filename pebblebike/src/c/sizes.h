@@ -5,15 +5,24 @@
 #define DOT_WIDTH 15
 #define CHAR_HEIGHT 51
 
-#ifdef PBL_PLATFORM_CHALK
-  #define TOPBAR_HEIGHT 25
-  #define SCREEN_W 180
-  #define SCREEN_H 180
-  // 18
-  #define PAGE_OFFSET_X ((180-144)/2)
-  // 6
-  //#define PAGE_OFFSET_Y ((180-168)/2 - TOPBAR_HEIGHT)
+#if defined(PBL_ROUND)
+  // Round platforms: chalk (180x180) and gabbro (260x260).
+  // Scale the content block from the screen width so it fills the larger round
+  // display (chalk margin 18/180 = 0.1 -> gabbro 26/260).
+  #if defined(PBL_PLATFORM_GABBRO)
+    // Gabbro (Pebble 2 Round): 260x260 round, 64-color.
+    #define TOPBAR_HEIGHT 36
+    #define SCREEN_W 260
+    #define SCREEN_H 260
+  #else
+    // Chalk (Pebble Time Round): 180x180 round.
+    #define TOPBAR_HEIGHT 25
+    #define SCREEN_W 180
+    #define SCREEN_H 180
+  #endif
+  #define PAGE_OFFSET_X (SCREEN_W / 10)
   #define PAGE_OFFSET_Y TOPBAR_HEIGHT
+  #define PAGE_W (SCREEN_W - 2*PAGE_OFFSET_X)
 #elif defined(PBL_PLATFORM_EMERY)
   // Emery (Pebble Time 2): 200x228 rectangular, 64-color.
   // Reference layout is 144x168 (basalt); scale offsets/fonts by SCREEN_H/168.
@@ -32,10 +41,10 @@
 
 #define MENU_WIDTH 0
 
-#if defined(PBL_PLATFORM_EMERY)
-  #define PAGE_W SCREEN_W
+#if defined(PBL_PLATFORM_EMERY) || defined(PBL_ROUND)
+  #define PAGE_W (SCREEN_W - 2*PAGE_OFFSET_X)
 #else
-  // Basalt/chalk content area is 144 wide (chalk centers it via PAGE_OFFSET_X).
+  // Basalt/diorite/flint/aplite content area is 144 wide.
   #define PAGE_W (144 - MENU_WIDTH)
 #endif
 #define PAGE_H (SCREEN_H-TOPBAR_HEIGHT)
@@ -52,7 +61,20 @@
   #define PBL_IF_EMERY_ELSE(e, r) (r)
 #endif
 
-#if defined(PBL_PLATFORM_EMERY)
+#if defined(PBL_PLATFORM_GABBRO)
+  #define PBL_IF_GABBRO_ELSE(e, r) (e)
+#else
+  #define PBL_IF_GABBRO_ELSE(e, r) (r)
+#endif
+
+// Fires for both large-color round/rect platforms that use the scaled font set.
+#if defined(PBL_PLATFORM_EMERY) || defined(PBL_PLATFORM_GABBRO)
+  #define PBL_IF_LARGEFONT_ELSE(e, r) (e)
+#else
+  #define PBL_IF_LARGEFONT_ELSE(e, r) (r)
+#endif
+
+#if defined(PBL_PLATFORM_EMERY) || defined(PBL_PLATFORM_GABBRO)
   #define FONT_TOPBAR font_roboto_bold_26
   #define FONT_BIG    font_roboto_bold_72
   #define FONT_FIELD  font_roboto_bold_38

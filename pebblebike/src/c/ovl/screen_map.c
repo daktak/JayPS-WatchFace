@@ -260,7 +260,7 @@ void screen_map_layer_init(Window* window) {
     layer_add_child(window_get_root_layer(window), s_data.page_map);
 #ifdef ENABLE_FUNCTION_LIVE
     for(int i = 0; i < NUM_LIVE_FRIENDS; i++) {
-        s_live.friends[i].name_frame = GRect(0, PBL_IF_EMERY_ELSE(20, 15), PBL_IF_EMERY_ELSE(SCREEN_W / 2, 100), PBL_IF_EMERY_ELSE(20, 15));
+        s_live.friends[i].name_frame = GRect(0, PBL_IF_EMERY_ELSE(20, 15), PBL_IF_EMERY_ELSE(SCREEN_W / 2, PBL_IF_GABBRO_ELSE(SCREEN_W / 2, 100)), PBL_IF_EMERY_ELSE(20, 15));
         s_live.friends[i].name_layer = text_layer_create(s_live.friends[i].name_frame);
         set_layer_attr_full(s_live.friends[i].name_layer, s_live.friends[i].name, FONT_UNIT, GTextAlignmentLeft, COLOR_MAP, GColorClear, s_data.page_map);
     }
