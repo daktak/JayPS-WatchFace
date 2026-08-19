@@ -318,6 +318,12 @@ typedef struct LiveData {
 #ifdef PBL_PLATFORM_CHALK
 extern GFont font_roboto_bold_16;
 #endif
+#ifdef PBL_PLATFORM_EMERY
+extern GFont font_roboto_bold_20;
+extern GFont font_roboto_bold_33;
+extern GFont font_roboto_bold_38;
+extern GFont font_roboto_bold_72;
+#endif
 extern GFont font_roboto_bold_62;
 extern AppData s_data;
 extern GPSData s_gpsdata;

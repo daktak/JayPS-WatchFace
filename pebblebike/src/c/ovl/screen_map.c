@@ -231,7 +231,7 @@ void path_layer_update_callback(Layer *me, GContext *ctx) {
 #endif
 
     graphics_context_set_text_color(ctx, GColorBlack);
-    graphics_draw_text(ctx, s_data.nav_next_distance, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD), NAVIGATION_DISTANCE_TEXT, GTextOverflowModeFill, GTextAlignmentRight, NULL);
+    graphics_draw_text(ctx, s_data.nav_next_distance, FONT_TOPBAR, NAVIGATION_DISTANCE_TEXT, GTextOverflowModeFill, GTextAlignmentRight, NULL);
 
     nav_draw_compass(ctx, NAVIGATION_COMPASS_CENTER, NAVIGATION_COMPASS_RECT, true);
   }
@@ -260,9 +260,9 @@ void screen_map_layer_init(Window* window) {
     layer_add_child(window_get_root_layer(window), s_data.page_map);
 #ifdef ENABLE_FUNCTION_LIVE
     for(int i = 0; i < NUM_LIVE_FRIENDS; i++) {
-        s_live.friends[i].name_frame = GRect(0, 15, 100, 15);
+        s_live.friends[i].name_frame = GRect(0, PBL_IF_EMERY_ELSE(20, 15), PBL_IF_EMERY_ELSE(SCREEN_W / 2, 100), PBL_IF_EMERY_ELSE(20, 15));
         s_live.friends[i].name_layer = text_layer_create(s_live.friends[i].name_frame);
-        set_layer_attr_full(s_live.friends[i].name_layer, s_live.friends[i].name, fonts_get_system_font(FONT_KEY_GOTHIC_14), GTextAlignmentLeft, COLOR_MAP, GColorClear, s_data.page_map);
+        set_layer_attr_full(s_live.friends[i].name_layer, s_live.friends[i].name, FONT_UNIT, GTextAlignmentLeft, COLOR_MAP, GColorClear, s_data.page_map);
     }
 #endif
     pathFrame = GRect(0, 0, MAP_VSIZE_X, MAP_VSIZE_Y);

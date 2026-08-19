@@ -103,6 +103,12 @@ void _ovl_init() {
 #ifdef PBL_PLATFORM_CHALK
   font_roboto_bold_16 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_16));
 #endif
+#ifdef PBL_PLATFORM_EMERY
+  font_roboto_bold_20 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_20));
+  font_roboto_bold_33 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_33));
+  font_roboto_bold_38 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_38));
+  font_roboto_bold_72 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_72));
+#endif
   font_roboto_bold_62 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_62));
 
 
@@ -162,9 +168,9 @@ void topbar_layer_init(Window* window) {
   layer_add_child(window_get_root_layer(window), s_data.topbar_layer.layer);
 
   // time (centered in top bar)
-  s_data.topbar_layer.field_center_layer.data_layer = text_layer_create(GRect(PAGE_OFFSET_X, PBL_IF_ROUND_ELSE(6,-8), PAGE_W, PBL_IF_ROUND_ELSE(19,25)));
+  s_data.topbar_layer.field_center_layer.data_layer = text_layer_create(GRect(PAGE_OFFSET_X, PBL_IF_ROUND_ELSE(6, PBL_IF_EMERY_ELSE(-11, -8)), PAGE_W, PBL_IF_ROUND_ELSE(19, PBL_IF_EMERY_ELSE(34, 25))));
   text_layer_set_background_color(s_data.topbar_layer.field_center_layer.data_layer, COLOR_TOP_BAR);
-  set_layer_attr_full(s_data.topbar_layer.field_center_layer.data_layer, s_data.time, PBL_IF_ROUND_ELSE(font_roboto_bold_16, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD)), GTextAlignmentCenter, COLOR_TOP_BAR, BG_COLOR_TOP_BAR, window_get_root_layer(window));
+  set_layer_attr_full(s_data.topbar_layer.field_center_layer.data_layer, s_data.time, FONT_TOPBAR, GTextAlignmentCenter, COLOR_TOP_BAR, BG_COLOR_TOP_BAR, window_get_root_layer(window));
 
   // bluetooth icon
   s_data.topbar_layer.bluetooth_image = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BLUETOOTH);
@@ -179,8 +185,8 @@ void topbar_layer_init(Window* window) {
   layer_set_hidden(bitmap_layer_get_layer(s_data.topbar_layer.bluetooth_layer), !bluetooth_connection_service_peek());
 
   // accuracy (1/3, right)
-  s_data.topbar_layer.accuracy_layer = text_layer_create(GRect(PAGE_W - PBL_IF_ROUND_ELSE(18, 20) - PBL_IF_ROUND_ELSE(15, 0), PBL_IF_ROUND_ELSE(6,-8), PBL_IF_ROUND_ELSE(18, 20), PBL_IF_ROUND_ELSE(19,25)));
-  set_layer_attr_full(s_data.topbar_layer.accuracy_layer, s_data.accuracy, PBL_IF_ROUND_ELSE(font_roboto_bold_16, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD)), GTextAlignmentRight, COLOR_TOP_BAR, BG_COLOR_TOP_BAR, window_get_root_layer(window));
+  s_data.topbar_layer.accuracy_layer = text_layer_create(GRect(PAGE_W - PBL_IF_ROUND_ELSE(18, 20) - PBL_IF_ROUND_ELSE(15, 0), PBL_IF_ROUND_ELSE(6, PBL_IF_EMERY_ELSE(-11, -8)), PBL_IF_ROUND_ELSE(18, 20), PBL_IF_ROUND_ELSE(19, PBL_IF_EMERY_ELSE(34, 25))));
+  set_layer_attr_full(s_data.topbar_layer.accuracy_layer, s_data.accuracy, FONT_TOPBAR, GTextAlignmentRight, COLOR_TOP_BAR, BG_COLOR_TOP_BAR, window_get_root_layer(window));
   layer_set_hidden(text_layer_get_layer(s_data.topbar_layer.accuracy_layer), s_data.state == STATE_STOP);
 }
 
@@ -196,20 +202,20 @@ void screen_data_layer_init(Window* window) {
 
   // BEGIN bottom left "distance"
 
-  s_data.screenData_layer.field_bottom_left.unit_layer = text_layer_create(GRect(PAGE_OFFSET_X + 1, PAGE_DATA_BOTTOM_DATA_H + 20, PAGE_W / 2 - 4, 18));
-  set_layer_attr_full(s_data.screenData_layer.field_bottom_left.unit_layer, s_data.unitsDistance, fonts_get_system_font(FONT_KEY_GOTHIC_14), PBL_IF_ROUND_ELSE(GTextAlignmentRight, GTextAlignmentCenter), COLOR_UNITS, BG_COLOR_UNITS, s_data.page_data);
+  s_data.screenData_layer.field_bottom_left.unit_layer = text_layer_create(GRect(PAGE_OFFSET_X + 1, PAGE_DATA_BOTTOM_DATA_H + PBL_IF_EMERY_ELSE(27, 20), PAGE_W / 2 - 4, PBL_IF_EMERY_ELSE(24, 18)));
+  set_layer_attr_full(s_data.screenData_layer.field_bottom_left.unit_layer, s_data.unitsDistance, FONT_UNIT, PBL_IF_ROUND_ELSE(GTextAlignmentRight, GTextAlignmentCenter), COLOR_UNITS, BG_COLOR_UNITS, s_data.page_data);
 
-  s_data.screenData_layer.field_bottom_left.data_layer = text_layer_create(GRect(PAGE_OFFSET_X + 1, PAGE_DATA_BOTTOM_DATA_H - 5, PAGE_W / 2 - 4, 30));
-  set_layer_attr_full(s_data.screenData_layer.field_bottom_left.data_layer, s_data.distance, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD), PBL_IF_ROUND_ELSE(GTextAlignmentRight, GTextAlignmentCenter), COLOR_DATA, BG_COLOR_DATA, s_data.page_data);
+  s_data.screenData_layer.field_bottom_left.data_layer = text_layer_create(GRect(PAGE_OFFSET_X + 1, PAGE_DATA_BOTTOM_DATA_H - PBL_IF_EMERY_ELSE(7, 5), PAGE_W / 2 - 4, PBL_IF_EMERY_ELSE(40, 30)));
+  set_layer_attr_full(s_data.screenData_layer.field_bottom_left.data_layer, s_data.distance, FONT_FIELD, PBL_IF_ROUND_ELSE(GTextAlignmentRight, GTextAlignmentCenter), COLOR_DATA, BG_COLOR_DATA, s_data.page_data);
 
   // END bottom left
 
   // BEGIN bottom right "avg"
-  s_data.screenData_layer.field_bottom_right.unit_layer = text_layer_create(GRect(PAGE_OFFSET_X + PAGE_W / 2 + PBL_IF_ROUND_ELSE(4, 0), PAGE_DATA_BOTTOM_DATA_H + 20, PAGE_W / 2 - 2*PBL_IF_ROUND_ELSE(4, 0), 18));
-  set_layer_attr_full(s_data.screenData_layer.field_bottom_right.unit_layer, s_data.unitsSpeed, fonts_get_system_font(FONT_KEY_GOTHIC_14), PBL_IF_ROUND_ELSE(GTextAlignmentLeft, GTextAlignmentCenter), COLOR_UNITS, BG_COLOR_UNITS, s_data.page_data);
+  s_data.screenData_layer.field_bottom_right.unit_layer = text_layer_create(GRect(PAGE_OFFSET_X + PAGE_W / 2 + PBL_IF_ROUND_ELSE(4, 0), PAGE_DATA_BOTTOM_DATA_H + PBL_IF_EMERY_ELSE(27, 20), PAGE_W / 2 - 2*PBL_IF_ROUND_ELSE(4, 0), PBL_IF_EMERY_ELSE(24, 18)));
+  set_layer_attr_full(s_data.screenData_layer.field_bottom_right.unit_layer, s_data.unitsSpeed, FONT_UNIT, PBL_IF_ROUND_ELSE(GTextAlignmentLeft, GTextAlignmentCenter), COLOR_UNITS, BG_COLOR_UNITS, s_data.page_data);
 
-  s_data.screenData_layer.field_bottom_right.data_layer = text_layer_create(GRect(PAGE_OFFSET_X + PAGE_W / 2  + PBL_IF_ROUND_ELSE(4, 0), PAGE_DATA_BOTTOM_DATA_H - 5, PAGE_W / 2 - 2*PBL_IF_ROUND_ELSE(4, 0), 30));
-  set_layer_attr_full(s_data.screenData_layer.field_bottom_right.data_layer, s_data.avgspeed, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD), PBL_IF_ROUND_ELSE(GTextAlignmentLeft, GTextAlignmentCenter), COLOR_DATA, BG_COLOR_DATA, s_data.page_data);
+  s_data.screenData_layer.field_bottom_right.data_layer = text_layer_create(GRect(PAGE_OFFSET_X + PAGE_W / 2  + PBL_IF_ROUND_ELSE(4, 0), PAGE_DATA_BOTTOM_DATA_H - PBL_IF_EMERY_ELSE(7, 5), PAGE_W / 2 - 2*PBL_IF_ROUND_ELSE(4, 0), PBL_IF_EMERY_ELSE(40, 30)));
+  set_layer_attr_full(s_data.screenData_layer.field_bottom_right.data_layer, s_data.avgspeed, FONT_FIELD, PBL_IF_ROUND_ELSE(GTextAlignmentLeft, GTextAlignmentCenter), COLOR_DATA, BG_COLOR_DATA, s_data.page_data);
 
 
   // END bottom right
@@ -219,22 +225,22 @@ void screen_data_layer_init(Window* window) {
 
   // BEGIN top2 "speed"
 
-  s_data.screenData_layer.field_top2.unit_layer = text_layer_create(GRect(PBL_IF_ROUND_ELSE(19, 3), PAGE_DATA_TOP_DATA_H - 17, SCREEN_W - 2*PBL_IF_ROUND_ELSE(19, 3), 18));
-  set_layer_attr_full(s_data.screenData_layer.field_top2.unit_layer, s_data.unitsSpeed, fonts_get_system_font(FONT_KEY_GOTHIC_14), GTextAlignmentRight, COLOR_UNITS, BG_COLOR_UNITS, s_data.page_data);
+  s_data.screenData_layer.field_top2.unit_layer = text_layer_create(GRect(PBL_IF_ROUND_ELSE(19, 3), PAGE_DATA_TOP_DATA_H - PBL_IF_EMERY_ELSE(23, 17), SCREEN_W - 2*PBL_IF_ROUND_ELSE(19, 3), PBL_IF_EMERY_ELSE(24, 18)));
+  set_layer_attr_full(s_data.screenData_layer.field_top2.unit_layer, s_data.unitsSpeed, FONT_UNIT, GTextAlignmentRight, COLOR_UNITS, BG_COLOR_UNITS, s_data.page_data);
 
-  s_data.screenData_layer.field_top2.data_layer = text_layer_create(GRect(0, PAGE_DATA_TOP_DATA_H - PBL_IF_ROUND_ELSE(34, 42), SCREEN_W, 30));
-  set_layer_attr_full(s_data.screenData_layer.field_top2.data_layer, s_data.avgspeed, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD), GTextAlignmentCenter, COLOR_DATA, BG_COLOR_DATA, s_data.page_data);
+  s_data.screenData_layer.field_top2.data_layer = text_layer_create(GRect(0, PAGE_DATA_TOP_DATA_H - PBL_IF_EMERY_ELSE(57, PBL_IF_ROUND_ELSE(34, 42)), SCREEN_W, PBL_IF_EMERY_ELSE(40, 30)));
+  set_layer_attr_full(s_data.screenData_layer.field_top2.data_layer, s_data.avgspeed, FONT_FIELD, GTextAlignmentCenter, COLOR_DATA, BG_COLOR_DATA, s_data.page_data);
 
   // END top2
 
 
   // BEGIN top "speed"
 
-  s_data.screenData_layer.field_top.unit_layer = text_layer_create(GRect(PBL_IF_ROUND_ELSE(10, 3), PAGE_DATA_MIDDLE_DATA_H + 19, SCREEN_W - 2*PBL_IF_ROUND_ELSE(10, 3), 22));
-  set_layer_attr_full(s_data.screenData_layer.field_top.unit_layer, s_data.unitsSpeedOrHeartRate, fonts_get_system_font(FONT_KEY_GOTHIC_14), GTextAlignmentRight, COLOR_DATA_UNITS, BG_COLOR_DATA_UNITS, s_data.page_data);
+  s_data.screenData_layer.field_top.unit_layer = text_layer_create(GRect(PBL_IF_ROUND_ELSE(10, 3), PAGE_DATA_MIDDLE_DATA_H + PBL_IF_EMERY_ELSE(26, 19), SCREEN_W - 2*PBL_IF_ROUND_ELSE(10, 3), PBL_IF_EMERY_ELSE(30, 22)));
+  set_layer_attr_full(s_data.screenData_layer.field_top.unit_layer, s_data.unitsSpeedOrHeartRate, FONT_UNIT, GTextAlignmentRight, COLOR_DATA_UNITS, BG_COLOR_DATA_UNITS, s_data.page_data);
 
-  s_data.screenData_layer.field_top.data_layer = text_layer_create(GRect(-20, PAGE_DATA_MIDDLE_DATA_H - 42 - PBL_IF_ROUND_ELSE(0,0), SCREEN_W + 40, 80));
-  set_layer_attr_full(s_data.screenData_layer.field_top.data_layer, s_data.speed, font_roboto_bold_62, GTextAlignmentCenter, COLOR_DATA_DATA, BG_COLOR_DATA_DATA, s_data.page_data);
+  s_data.screenData_layer.field_top.data_layer = text_layer_create(GRect(-20, PAGE_DATA_MIDDLE_DATA_H - PBL_IF_EMERY_ELSE(57, 42), SCREEN_W + 40, PBL_IF_EMERY_ELSE(110, 80)));
+  set_layer_attr_full(s_data.screenData_layer.field_top.data_layer, s_data.speed, FONT_BIG, GTextAlignmentCenter, COLOR_DATA_DATA, BG_COLOR_DATA_DATA, s_data.page_data);
 
   // END top
 

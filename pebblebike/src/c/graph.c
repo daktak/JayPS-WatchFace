@@ -1,6 +1,7 @@
 #include "pebble.h"
 #include "config.h"
 #include "colors.h"
+#include "sizes.h"
 #include "graph.h"
 
 GraphData graph_altitudes;
@@ -86,7 +87,7 @@ void graph_add_data(GraphData* graph, int16_t value) {
   graph->last_index = index;
 }
 
-#define GRAPH_BLOCK_SIZE 6
+#define GRAPH_BLOCK_SIZE PBL_IF_EMERY_ELSE(8, 6)
 void graph_draw(GContext* ctx, GRect bounds, GraphData* graph, GraphRange* colors, uint8_t nb_colors, TextLayer* text_layer, int min_block_value, bool stacked) {
   //LOG_INFO("graph_draw nb_colors:%d stacked:%d", nb_colors, stacked);
   //graphics_context_set_fill_color(ctx, GColorRed);

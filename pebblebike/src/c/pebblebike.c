@@ -23,6 +23,12 @@
 #ifdef PBL_PLATFORM_CHALK
 GFont font_roboto_bold_16;
 #endif
+#ifdef PBL_PLATFORM_EMERY
+GFont font_roboto_bold_20;
+GFont font_roboto_bold_33;
+GFont font_roboto_bold_38;
+GFont font_roboto_bold_72;
+#endif
 GFont font_roboto_bold_62;
 
 AppData s_data;
@@ -218,6 +224,12 @@ static void deinit(void) {
 
 #ifdef PBL_PLATFORM_CHALK
   fonts_unload_custom_font(font_roboto_bold_16);
+#endif
+#ifdef PBL_PLATFORM_EMERY
+  fonts_unload_custom_font(font_roboto_bold_20);
+  fonts_unload_custom_font(font_roboto_bold_33);
+  fonts_unload_custom_font(font_roboto_bold_38);
+  fonts_unload_custom_font(font_roboto_bold_72);
 #endif
   fonts_unload_custom_font(font_roboto_bold_62);
   window_destroy(s_data.window);

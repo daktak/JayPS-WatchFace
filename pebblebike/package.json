@@ -43,6 +43,28 @@
           "file": "fonts/Roboto-Bold.ttf"
         },
         {
+          "type": "font",
+          "name": "FONT_ROBOTO_BOLD_20",
+          "file": "fonts/Roboto-Bold.ttf"
+        },
+        {
+          "characterRegex": "[0-9.:-]",
+          "type": "font",
+          "name": "FONT_ROBOTO_BOLD_38",
+          "file": "fonts/Roboto-Bold.ttf"
+        },
+        {
+          "type": "font",
+          "name": "FONT_ROBOTO_BOLD_33",
+          "file": "fonts/Roboto-Bold.ttf"
+        },
+        {
+          "characterRegex": "[0-9.:-]",
+          "type": "font",
+          "name": "FONT_ROBOTO_BOLD_72",
+          "file": "fonts/Roboto-Bold.ttf"
+        },
+        {
           "menuIcon": true,
           "type": "png",
           "name": "IMAGE_MENU_ICON",
@@ -135,6 +157,7 @@
       "basalt",
       "chalk",
       "diorite",
+      "emery",
       "flint"
     ],
     "capabilities": [
