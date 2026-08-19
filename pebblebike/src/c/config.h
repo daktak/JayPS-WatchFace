@@ -5,7 +5,7 @@
 
 #define PRODUCTION
 #define VERSION_PEBBLE 500
-#define VERSION_TEXT "26.8.1"
+#define VERSION_TEXT "26.8.0"
 #define APP_COMPANY "daktak"
 
 ////////////////////////////////////////////////////////////////////////////////
