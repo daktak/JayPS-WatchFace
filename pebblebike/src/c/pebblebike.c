@@ -20,12 +20,13 @@
 #include "ovl/init.h"
 
 
-#ifdef PBL_PLATFORM_CHALK
+#if defined(PBL_PLATFORM_CHALK) || defined(PBL_PLATFORM_EMERY)
 GFont font_roboto_bold_16;
 #endif
 #ifdef PBL_PLATFORM_EMERY
 GFont font_roboto_bold_20;
-GFont font_roboto_bold_33;
+GFont font_roboto_bold_26;
+GFont font_roboto_bold_28;
 GFont font_roboto_bold_38;
 GFont font_roboto_bold_72;
 #endif
@@ -222,12 +223,13 @@ static void deinit(void) {
 
   buttons_deinit();
 
-#ifdef PBL_PLATFORM_CHALK
+#if defined(PBL_PLATFORM_CHALK) || defined(PBL_PLATFORM_EMERY)
   fonts_unload_custom_font(font_roboto_bold_16);
 #endif
 #ifdef PBL_PLATFORM_EMERY
   fonts_unload_custom_font(font_roboto_bold_20);
-  fonts_unload_custom_font(font_roboto_bold_33);
+  fonts_unload_custom_font(font_roboto_bold_26);
+  fonts_unload_custom_font(font_roboto_bold_28);
   fonts_unload_custom_font(font_roboto_bold_38);
   fonts_unload_custom_font(font_roboto_bold_72);
 #endif

@@ -55,7 +55,13 @@
         },
         {
           "type": "font",
-          "name": "FONT_ROBOTO_BOLD_33",
+          "name": "FONT_ROBOTO_BOLD_26",
+          "file": "fonts/Roboto-Bold.ttf"
+        },
+        {
+          "characterRegex": "[0-9.:-]",
+          "type": "font",
+          "name": "FONT_ROBOTO_BOLD_28",
           "file": "fonts/Roboto-Bold.ttf"
         },
         {

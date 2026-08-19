@@ -53,20 +53,26 @@
 #endif
 
 #if defined(PBL_PLATFORM_EMERY)
-  #define FONT_TOPBAR font_roboto_bold_33
+  #define FONT_TOPBAR font_roboto_bold_26
   #define FONT_BIG    font_roboto_bold_72
   #define FONT_FIELD  font_roboto_bold_38
   #define FONT_UNIT   font_roboto_bold_20
+  #define FONT_BOTTOM_UNIT  font_roboto_bold_16
+  #define FONT_BOTTOM_FIELD font_roboto_bold_28
 #elif defined(PBL_PLATFORM_CHALK)
   #define FONT_TOPBAR font_roboto_bold_16
   #define FONT_BIG    font_roboto_bold_62
   #define FONT_FIELD  fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD)
   #define FONT_UNIT   fonts_get_system_font(FONT_KEY_GOTHIC_14)
+  #define FONT_BOTTOM_UNIT  FONT_UNIT
+  #define FONT_BOTTOM_FIELD FONT_FIELD
 #else
   #define FONT_TOPBAR fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD)
   #define FONT_BIG    font_roboto_bold_62
   #define FONT_FIELD  fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD)
   #define FONT_UNIT   fonts_get_system_font(FONT_KEY_GOTHIC_14)
+  #define FONT_BOTTOM_UNIT  FONT_UNIT
+  #define FONT_BOTTOM_FIELD FONT_FIELD
 #endif
 
 #endif // SIZES_H

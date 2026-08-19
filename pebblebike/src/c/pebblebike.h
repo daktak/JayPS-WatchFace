@@ -315,12 +315,13 @@ typedef struct LiveData {
   LiveFriendData friends[NUM_LIVE_FRIENDS];
   LiveFriendData *sorted_friends[NUM_LIVE_FRIENDS];
 } LiveData;
-#ifdef PBL_PLATFORM_CHALK
+#if defined(PBL_PLATFORM_CHALK) || defined(PBL_PLATFORM_EMERY)
 extern GFont font_roboto_bold_16;
 #endif
 #ifdef PBL_PLATFORM_EMERY
 extern GFont font_roboto_bold_20;
-extern GFont font_roboto_bold_33;
+extern GFont font_roboto_bold_26;
+extern GFont font_roboto_bold_28;
 extern GFont font_roboto_bold_38;
 extern GFont font_roboto_bold_72;
 #endif
