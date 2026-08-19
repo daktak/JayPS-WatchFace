@@ -4,8 +4,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #define PRODUCTION
-#define VERSION_PEBBLE 400
-#define VERSION_TEXT "3.3.0"
+#define VERSION_PEBBLE 500
+#define VERSION_TEXT "26.8.1"
 #define APP_COMPANY "daktak"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // force functions, even in PRODUCTION
-#define ENABLE_ORUXMAPS
 #define ENABLE_LOCALIZE
 #define ENABLE_NAVIGATION
 #define ENABLE_MAP_SKIP_POINT_OUTSIDE
@@ -62,6 +61,8 @@
   #define ENABLE_ROTATION
   #define ENABLE_NAVIGATION_FULL
   //#define ENABLE_MAP_SKIP_POINT_OUTSIDE
+  // OruxMaps menu integration -- save memory on APLITE
+  #define ENABLE_ORUXMAPS
 #endif
 
 

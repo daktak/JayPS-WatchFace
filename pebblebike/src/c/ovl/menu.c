@@ -199,10 +199,6 @@ void init_settings_window()
     .title = _("Authors"),
     .subtitle = APP_COMPANY,
   };
-  menu_section2_items[i++] = (SimpleMenuItem) {
-    .title = _("More info"),
-    .subtitle = "http://pebblebike.com",
-  };
   BatteryChargeState charge_state = battery_state_service_peek();
   snprintf(pebble_battery_level, sizeof(pebble_battery_level), "%d %%", charge_state.charge_percent);
   menu_section2_items[i++] = (SimpleMenuItem) {
