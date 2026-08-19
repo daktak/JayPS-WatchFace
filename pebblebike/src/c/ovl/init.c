@@ -226,7 +226,7 @@ void screen_data_layer_init(Window* window) {
 
   // BEGIN top2 "speed"
 
-  s_data.screenData_layer.field_top2.unit_layer = text_layer_create(GRect(PBL_IF_ROUND_ELSE(19, 3), PAGE_DATA_TOP_DATA_H - PBL_IF_EMERY_ELSE(19, 17), SCREEN_W - 2*PBL_IF_ROUND_ELSE(19, 3), PBL_IF_EMERY_ELSE(24, 18)));
+  s_data.screenData_layer.field_top2.unit_layer = text_layer_create(GRect(PBL_IF_ROUND_ELSE(19, 3), PAGE_DATA_TOP_DATA_H - PBL_IF_EMERY_ELSE(23, 17), SCREEN_W - 2*PBL_IF_ROUND_ELSE(19, 3), PBL_IF_EMERY_ELSE(24, 18)));
   set_layer_attr_full(s_data.screenData_layer.field_top2.unit_layer, s_data.unitsSpeed, FONT_UNIT, GTextAlignmentRight, COLOR_UNITS, BG_COLOR_UNITS, s_data.page_data);
 
   s_data.screenData_layer.field_top2.data_layer = text_layer_create(GRect(0, PAGE_DATA_TOP_DATA_H - PBL_IF_EMERY_ELSE(53, PBL_IF_ROUND_ELSE(34, 42)), SCREEN_W, PBL_IF_EMERY_ELSE(40, 30)));
