@@ -10,6 +10,9 @@
 #include "heartrate.h"
 #include "navigation.h"
 #include "screen_data.h"
+#ifdef PBL_HEALTH
+#include "health.h"
+#endif
 
 enum {
   BYTE_SETTINGS = 0,
@@ -91,6 +94,37 @@ void send_cmd(uint8_t cmd) {
     }
 
     Tuplet value = TupletInteger(CMD_BUTTON_PRESS, cmd);
+
+    DictionaryIterator *iter;
+    app_message_outbox_begin(&iter);
+
+    if (iter == NULL)
+        return;
+
+    dict_write_tuplet(iter, &value);
+    dict_write_end(iter);
+
+    app_message_outbox_send();
+}
+void send_heartrate(uint8_t heartrate) {
+    // throttle: send at most once per second, and only when the value changed
+    static time_t last_hr_send = 0;
+    static uint8_t last_hr_value = 255;
+    time_t now = time(NULL);
+    if (now - last_hr_send < 1) {
+      return;
+    }
+    if (heartrate == last_hr_value) {
+      return;
+    }
+    last_hr_send = now;
+    last_hr_value = heartrate;
+
+    if (!bluetooth_connection_service_peek()) {
+      return;
+    }
+
+    Tuplet value = TupletInteger(MSG_HEARTRATE_PEBBLE, heartrate);
 
     DictionaryIterator *iter;
     app_message_outbox_begin(&iter);
@@ -514,6 +548,21 @@ void communication_in_received_callback(DictionaryIterator *iter, void *context)
           GET_DATA(heartrate_max, 0);
           GET_DATA(heartrate_zones_notification_mode, 1);
           LOG_INFO("heartrate_max=%d mode=%d", heartrate_max, heartrate_zones_notification_mode);
+          break;
+
+        case MSG_HR_MONITOR_ENABLE:
+          GET_DATA(config.hr_monitor, 0);
+          config_save();
+          #ifdef PBL_HEALTH
+            health_init_if_needed();
+            heartrate_update_sample_period();
+            if (!config.hr_monitor && !s_gpsdata.received_external_hr && s_gpsdata.heartrate != 255) {
+              s_gpsdata.heartrate = 255;
+              s_gpsdata.received_internal_hr = false;
+              strcpy(s_data.heartrate, "-");
+            }
+          #endif
+          LOG_INFO("hr_monitor=%d", config.hr_monitor);
           break;
 
         case MSG_NAVIGATION:

@@ -30,6 +30,8 @@ enum {
   MSG_CONFIG = 0x28,
   MSG_HR_MAX = 0x29,
   MSG_NAVIGATION = 0x31,
+  MSG_HEARTRATE_PEBBLE = 0x2A,
+  MSG_HR_MONITOR_ENABLE = 0x2B,
 };
 
 enum {

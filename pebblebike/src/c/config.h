@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #define PRODUCTION
-#define VERSION_PEBBLE 500
+#define VERSION_PEBBLE 501
 #define VERSION_TEXT "26.8.0"
 #define APP_COMPANY "daktak"
 
@@ -66,7 +66,7 @@
 #endif
 
 
-#ifdef PBL_PLATFORM_DIORITE
+#if defined(PBL_PLATFORM_DIORITE) || defined(PBL_PLATFORM_EMERY)
   #define HAS_TWO_HRM
   #define ENABLE_INTERNAL_HRM
   //#define DEBUG_REPLACE_CADENCE_BY_HEARTRATE

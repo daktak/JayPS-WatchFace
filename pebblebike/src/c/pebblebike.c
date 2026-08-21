@@ -136,7 +136,12 @@ void change_state(uint8_t state) {
   }
   layer_set_hidden(text_layer_get_layer(s_data.topbar_layer.accuracy_layer), s_data.state == STATE_STOP);
   buttons_update();
-  
+  #ifdef PBL_HEALTH
+    if (config.hr_monitor) {
+      health_init_if_needed();
+      heartrate_update_sample_period();
+    }
+  #endif
   nbchange_state++;
 }
 

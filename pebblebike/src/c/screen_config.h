@@ -3,6 +3,7 @@
 
 #define MIN_VERSION_PEBBLE_SCREEN_A_TOP2 267
 #define MIN_VERSION_PEBBLE_SCREEN_A_TOP_BAR 287
+#define MIN_VERSION_PEBBLE_HR_MONITOR 501
 #define CONFIG_NB_FIELD_ORDER 30
 
 enum {
@@ -38,6 +39,7 @@ typedef struct ConfigData {
     uint8_t screenA_top2_type;
     uint8_t screenA_topbar_center_type;
     uint8_t screenB_topbar_center_type;
+    uint8_t hr_monitor;
     // ALWAYS INSERT NEW FIELD AT THE END FOR COMPATIBILITY REASON (SAVED CONFIGS ON PREVIOUS VERSIONS)
 } ConfigData;
 extern ConfigData config;

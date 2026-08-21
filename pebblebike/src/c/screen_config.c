@@ -333,6 +333,9 @@ void config_load() {
       config.screenA_topbar_center_type = FIELD_TIME;
       config.screenB_topbar_center_type = FIELD_TIME;
     }
+    if (version < MIN_VERSION_PEBBLE_HR_MONITOR) {
+      config.hr_monitor = 0;
+    }
   } else {
 #ifdef ENABLE_DEMO
 //    config.screenA_top_type           = FIELD_MAXSPEED;
@@ -371,6 +374,7 @@ void config_load() {
 #else
     config.screenB_topbar_center_type = FIELD_NAV_NEXT_INDEX;
 #endif
+    config.hr_monitor = 0;
   }
 #ifdef PBL_HEALTH
   health_init_if_needed();
