@@ -58,6 +58,9 @@ uint8_t config_order[CONFIG_NB_FIELD_ORDER] = {
 #endif
     FIELD_TEMPERATURE,
     FIELD_TIME,
+    FIELD_POWER,
+    FIELD_AVGPOWER,
+    FIELD_NORMPOWER,
     FIELD__UNUSED,
 };
 
@@ -101,6 +104,9 @@ const char *field_get_title(uint8_t field) {
 #endif
     case FIELD_HEARTRATE_GRAPH_ONLY: return _("Heartrate graph"); break;
     case FIELD_CADENCE: return _("Cadence"); break;
+    case FIELD_POWER: return _("Power"); break;
+    case FIELD_AVGPOWER: return _("Avg power"); break;
+    case FIELD_NORMPOWER: return _("Normalized power"); break;
 #ifdef PRODUCTION
     case FIELD_TEMPERATURE: return _("Temperature"); break;
 #else
@@ -152,6 +158,9 @@ const char *field_get_text(uint8_t field) {
 #endif
       return s_data.heartrate; break;
     case FIELD_CADENCE: return s_data.cadence; break;
+    case FIELD_POWER: return s_data.power; break;
+    case FIELD_AVGPOWER: return s_data.avgpower; break;
+    case FIELD_NORMPOWER: return s_data.normpower; break;
     case FIELD_TEMPERATURE: return s_data.temperature; break;
     case FIELD_TIME: return s_data.time; break;
 #ifdef PBL_HEALTH
@@ -213,6 +222,9 @@ const char *field_get_units(uint8_t field) {
     case FIELD_CADENCE: return "bpm"; break;
 #else
     case FIELD_CADENCE: return "rpm"; break;
+    case FIELD_POWER: return "W"; break;
+    case FIELD_AVGPOWER: return "W"; break;
+    case FIELD_NORMPOWER: return "W"; break;
 #endif
     case FIELD_TEMPERATURE: return s_data.unitsTemperature; break;
     case FIELD_TIME: return ""; break;

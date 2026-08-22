@@ -146,6 +146,9 @@ enum {
   FIELD_NAV_DISTANCE_NEXT,
   FIELD_NAV_DISTANCE_TO_DESTINATION,
   FIELD_NAV_TIME_TO_DESTINATION,
+  FIELD_POWER,
+  FIELD_AVGPOWER,
+  FIELD_NORMPOWER,
   FIELD__UNUSED,
 };
 
@@ -215,6 +218,9 @@ typedef struct AppData {
   char temperature[7];
   char steps[7];
   char steps_cadence[7];
+  char power[8];
+  char avgpower[8];
+  char normpower[8];
 
   char nav_next_distance[6];
   char nav_distance_to_destination[6];
@@ -260,6 +266,10 @@ typedef struct GPSData {
   uint8_t heartrate;
   uint8_t cadence;
   int16_t temperature10;
+
+  uint16_t power;
+  uint8_t avgpower;
+  uint8_t normpower;
 
   uint16_t nav_next_distance1000;
   uint16_t nav_distance_to_destination100;

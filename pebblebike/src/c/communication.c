@@ -39,6 +39,13 @@ enum {
   BYTE_MAXSPEED1 = 21,
   BYTE_MAXSPEED2 = 22,
   BYTE_CADENCE = 23,
+  BYTE_POWER1 = 24,
+  BYTE_POWER2 = 25,
+  BYTE_AVGPOWER = 26,
+  BYTE_MAXPOWER1 = 27,
+  BYTE_MAXPOWER2 = 28,
+  BYTE_AVGPWR3 = 29,
+  BYTE_NPPWR30 = 30,
 };
 
 enum {
@@ -452,6 +459,25 @@ void communication_in_received_callback(DictionaryIterator *iter, void *context)
                 GET_DATA(s_gpsdata.cadence, BYTE_HEARTRATE); // no specific field until MSG_LOCATION_DATA_V3
               }
             #endif
+
+            GET_DATA_UINT16(s_gpsdata.power, BYTE_POWER1);
+            GET_DATA(s_gpsdata.avgpower, BYTE_AVGPOWER);
+            GET_DATA(s_gpsdata.normpower, BYTE_NPPWR30);
+            if (s_gpsdata.power != 0) {
+              snprintf(s_data.power, sizeof(s_data.power), "%u", s_gpsdata.power);
+            } else {
+              strcpy(s_data.power, "-");
+            }
+            if (s_gpsdata.avgpower != 0) {
+              snprintf(s_data.avgpower, sizeof(s_data.avgpower), "%u", s_gpsdata.avgpower);
+            } else {
+              strcpy(s_data.avgpower, "-");
+            }
+            if (s_gpsdata.normpower != 0) {
+              snprintf(s_data.normpower, sizeof(s_data.normpower), "%u", s_gpsdata.normpower);
+            } else {
+              strcpy(s_data.normpower, "-");
+            }
 
             snprintf(s_data.accuracy,   sizeof(s_data.accuracy),   "%d",   s_gpsdata.accuracy);
             snprintf(s_data.distance,   sizeof(s_data.distance),   "%ld.%ld", s_gpsdata.distance100 / 100, s_gpsdata.distance100 % 100 / 10);
