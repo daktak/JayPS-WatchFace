@@ -2,6 +2,7 @@ FROM --platform=linux/amd64 python:3.11-slim
 
 RUN apt-get update && apt-get install -y \
     curl \
+    make \
     libfreetype6 \
     libpng16-16 \
     npm \
@@ -13,4 +14,4 @@ RUN pebble sdk install latest
 
 WORKDIR /app
 
-CMD ["pebble", "build"]
+CMD ["make", "build"]

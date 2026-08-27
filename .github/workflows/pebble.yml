@@ -24,6 +24,7 @@ jobs:
           MAJOR=$(echo "$TAG" | cut -d. -f1)
           MINOR=$(echo "$TAG" | cut -d. -f2)
           VERSION="${MAJOR}.${MINOR}.0"
+          cd pebblebike
           jq --arg v "$VERSION" '.version = $v' package.json > package.json.tmp && mv package.json.tmp package.json
           echo "Version set to $VERSION"
 
@@ -35,21 +36,15 @@ jobs:
 
       - name: Run Pebble build
         run: |
-          cd pebblebike
-          mkdir -p build
           docker run --rm --platform linux/amd64 \
-            -v "$(pwd)/src:/app/src:ro" \
-            -v "$(pwd)/resources:/app/resources:ro" \
-            -v "$(pwd)/package.json:/app/package.json:ro" \
-            -v "$(pwd)/wscript:/app/wscript:ro" \
-            -v "$(pwd)/build:/app/build" \
-            pebble-builder
+            -v "$(pwd):/app" \
+            pebble-builder make build
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: pebble-app
-          path: build/*.pbw
+          path: pebblebike/build/*.pbw
 
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/v')
