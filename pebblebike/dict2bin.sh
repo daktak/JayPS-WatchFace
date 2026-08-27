@@ -8,5 +8,3 @@ python3 dict2bin.py  locale_italian.json
 python3 dict2bin.py  locale_japanese.json
 
 mv *.bin resources/
-
-git status local* resources/*

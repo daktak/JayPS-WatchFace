@@ -12,6 +12,8 @@ RUN pip install pebble-tool
 
 RUN pebble sdk install latest
 
+RUN git config --global --add safe.directory /app
+
 WORKDIR /app
 
 CMD ["make", "build"]
