@@ -20,9 +20,8 @@ make build
 
 This invokes, inside `pebblebike/`:
 
-1. `python3 gen_dict.py src/c locale_english.json` — regenerates the English locale dictionary by scanning the C sources in `src/c`.
-2. `./dict2bin.sh` — converts the `locale_*.json` files into `resources/locale_*.bin` resources.
-3. `pebble build` — compiles the watch face.
+1. `./dict2bin.sh` — converts the `locale_*.json` files into `resources/locale_*.bin` resources.
+2. `pebble build` — compiles the watch face.
 
 The resulting bundle is written to `pebblebike/build/pebblebike.pbw`.
 
@@ -31,3 +30,15 @@ To clean build output (and the generated `resources/locale_*.bin` files), run:
 ```
 make clean
 ```
+
+## Regenerating the locale dictionary
+
+The English string table (`pebblebike/locale_english.json`) is generated from the `_("...")` markers in the C sources. This is a developer maintenance step, **separate from building** — the build consumes the committed `locale_*.json` files as-is.
+
+After adding new translatable strings in `src/c`, run:
+
+```
+make gen-dict
+```
+
+(or its `make dict` alias). This regenerates `pebblebike/locale_english.json`; commit the result and, if needed, add the corresponding translations to the other `locale_*.json` files. The other locales are translator-maintained and are never overwritten by this step.
