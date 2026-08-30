@@ -21,3 +21,4 @@
 
 /pebblebike/build
 /pebblebike/.lock-waf_*
+pebblebike/resources/locale_*.bin
