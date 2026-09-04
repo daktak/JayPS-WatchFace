@@ -50,7 +50,6 @@ bool title_instead_of_units = true;
 GColor bg_color_data_main;
 int nbchange_state=0;
 bool need_launch_config=false;
-bool is_indoor=false;
 
 void change_units(uint8_t units, bool first_time) {
   if ((units == s_gpsdata.units) && !first_time) {

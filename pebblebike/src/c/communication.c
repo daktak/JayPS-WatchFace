@@ -584,16 +584,6 @@ void communication_in_received_callback(DictionaryIterator *iter, void *context)
           LOG_INFO("ftp=%d", ftp);
           break;
 
-        case MSG_INDOOR:
-          GET_DATA(is_indoor, 0);
-          LOG_INFO("is_indoor=%d", is_indoor);
-          if (is_indoor && s_data.page_number == PAGE_MAP) {
-            s_data.page_number = PAGE_DATA;
-            s_data.data_subpage = SUBPAGE_A;
-            update_screens();
-          }
-          break;
-
         case MSG_HR_MONITOR_ENABLE:
           GET_DATA(config.hr_monitor, 0);
           config_save();
