@@ -5,6 +5,7 @@
 #include "screen_config.h"
 #include "graph.h"
 #include "heartrate.h"
+#include "power.h"
 #include "navigation.h"
 #include "screen_data.h"
 #include "ovl/screen_config.h"
@@ -110,6 +111,30 @@ void line_layer_update_callback(Layer *me, GContext* ctx) {
     graph_draw(ctx, GRECT_GRAPH, &graph_speeds, colors_speeds, ARRAY_LENGTH(colors_speeds), s_data.screen_config[s_data.data_subpage].field_top2.type == FIELD_SPEED_DATA_AND_GRAPH ? s_data.screenData_layer.field_top2.data_layer : NULL, 1, true);
 #else
     graph_draw(ctx, GRECT_GRAPH, &graph_speeds, NULL, 0, NULL, 1, true);
+#endif
+  } else if (
+#ifdef PBL_COLOR
+      s_data.screen_config[s_data.data_subpage].field_top2.type == FIELD_POWER_DATA_AND_GRAPH ||
+#endif
+      s_data.screen_config[s_data.data_subpage].field_top2.type == FIELD_POWER_GRAPH_ONLY) {
+#ifdef PBL_COLOR
+    GraphRange colors_powers[4] = {
+        {.min = power_zones_min_w(3), .color = power_zones_color[3]},
+        {.min = power_zones_min_w(4), .color = power_zones_color[4]},
+        {.min = power_zones_min_w(5), .color = power_zones_color[5]},
+        {.min = power_zones_min_w(6), .color = power_zones_color[6]},
+    };
+    if (ftp == 0) {
+      GraphRange fallback[2] = {
+          {.min = 0, .color = PBL_IF_COLOR_ELSE(GColorYellow, GColorBlack)},
+          {.min = 200, .color = PBL_IF_COLOR_ELSE(GColorRed, GColorBlack)}
+      };
+      graph_draw(ctx, GRECT_GRAPH, &graph_powers, fallback, ARRAY_LENGTH(fallback), s_data.screen_config[s_data.data_subpage].field_top2.type == FIELD_POWER_DATA_AND_GRAPH ? s_data.screenData_layer.field_top2.data_layer : NULL, 1, false);
+    } else {
+      graph_draw(ctx, GRECT_GRAPH, &graph_powers, colors_powers, ARRAY_LENGTH(colors_powers), s_data.screen_config[s_data.data_subpage].field_top2.type == FIELD_POWER_DATA_AND_GRAPH ? s_data.screenData_layer.field_top2.data_layer : NULL, 1, false);
+    }
+#else
+    graph_draw(ctx, GRECT_GRAPH, &graph_powers, NULL, 0, NULL, 1, false);
 #endif
   }
 #endif

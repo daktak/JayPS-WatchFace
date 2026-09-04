@@ -8,6 +8,7 @@ GraphData graph_altitudes;
 GraphData graph_speeds;
 GraphData graph_heartrates;
 GraphData graph_ascentrates;
+GraphData graph_powers;
 GBitmap* mask = NULL;
 
 void graph_init_data(GraphData* graph, uint8_t point_duration) {
@@ -26,6 +27,7 @@ void graph_init() {
   graph_init_data(&graph_ascentrates, 120);
   graph_init_data(&graph_heartrates, 60); ///@todo(hrm)
   graph_init_data(&graph_speeds, 30);
+  graph_init_data(&graph_powers, 60);
 
 #ifdef PBL_COLOR
   mask = gbitmap_create_with_resource(RESOURCE_ID_MASK);

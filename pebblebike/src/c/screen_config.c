@@ -61,6 +61,10 @@ uint8_t config_order[CONFIG_NB_FIELD_ORDER] = {
     FIELD_POWER,
     FIELD_AVGPOWER,
     FIELD_NORMPOWER,
+    FIELD_POWER_GRAPH_ONLY,
+#ifdef PBL_COLOR
+    FIELD_POWER_DATA_AND_GRAPH,
+#endif
     FIELD__UNUSED,
 };
 
@@ -107,6 +111,10 @@ const char *field_get_title(uint8_t field) {
     case FIELD_POWER: return _("Power"); break;
     case FIELD_AVGPOWER: return _("Avg power"); break;
     case FIELD_NORMPOWER: return _("Normalized power"); break;
+#ifdef PBL_COLOR
+    case FIELD_POWER_DATA_AND_GRAPH: return _("Power all"); break;
+#endif
+    case FIELD_POWER_GRAPH_ONLY: return _("Power graph"); break;
 #ifdef PRODUCTION
     case FIELD_TEMPERATURE: return _("Temperature"); break;
 #else
@@ -161,6 +169,10 @@ const char *field_get_text(uint8_t field) {
     case FIELD_POWER: return s_data.power; break;
     case FIELD_AVGPOWER: return s_data.avgpower; break;
     case FIELD_NORMPOWER: return s_data.normpower; break;
+#ifdef PBL_COLOR
+    case FIELD_POWER_DATA_AND_GRAPH: return s_data.power; break;
+#endif
+    case FIELD_POWER_GRAPH_ONLY: return ""; break;
     case FIELD_TEMPERATURE: return s_data.temperature; break;
     case FIELD_TIME: return s_data.time; break;
 #ifdef PBL_HEALTH
@@ -225,6 +237,10 @@ const char *field_get_units(uint8_t field) {
     case FIELD_POWER: return "W"; break;
     case FIELD_AVGPOWER: return "W"; break;
     case FIELD_NORMPOWER: return "W"; break;
+#ifdef PBL_COLOR
+    case FIELD_POWER_DATA_AND_GRAPH: return "W"; break;
+#endif
+    case FIELD_POWER_GRAPH_ONLY: return ""; break;
 #endif
     case FIELD_TEMPERATURE: return s_data.unitsTemperature; break;
     case FIELD_TIME: return ""; break;

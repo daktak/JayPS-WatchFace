@@ -105,11 +105,13 @@ bool config_field_contain_graph(uint8_t type_index) {
   result = result || config_order[type_index] == FIELD_ASCENTRATE_GRAPH_ONLY;
   result = result || config_order[type_index] == FIELD_HEARTRATE_GRAPH_ONLY;
   result = result || config_order[type_index] == FIELD_SPEED_GRAPH_ONLY;
+  result = result || config_order[type_index] == FIELD_POWER_GRAPH_ONLY;
 #ifdef PBL_COLOR
   result = result || config_order[type_index] == FIELD_ALTITUDE_DATA_AND_GRAPH;
   result = result || config_order[type_index] == FIELD_ASCENTRATE_DATA_AND_GRAPH;
   result = result || config_order[type_index] == FIELD_HEARTRATE_DATA_AND_GRAPH;
   result = result || config_order[type_index] == FIELD_SPEED_DATA_AND_GRAPH;
+  result = result || config_order[type_index] == FIELD_POWER_DATA_AND_GRAPH;
 #endif
   return result;
 }

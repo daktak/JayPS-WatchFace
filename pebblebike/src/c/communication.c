@@ -467,6 +467,7 @@ void communication_in_received_callback(DictionaryIterator *iter, void *context)
             if (s_gpsdata.power != 0) {
               snprintf(s_data.power, sizeof(s_data.power), "%u", s_gpsdata.power);
               if (ftp != 0) power_new_data(s_gpsdata.power);
+              graph_add_data(&graph_powers, s_gpsdata.power);
             } else {
               strcpy(s_data.power, "-");
             }

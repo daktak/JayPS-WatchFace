@@ -24,6 +24,7 @@ extern GraphData graph_altitudes;
 extern GraphData graph_speeds;
 extern GraphData graph_heartrates;
 extern GraphData graph_ascentrates;
+extern GraphData graph_powers;
 
 void graph_init();
 void graph_deinit();

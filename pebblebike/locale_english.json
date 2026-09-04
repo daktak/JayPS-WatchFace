@@ -6,6 +6,7 @@
   "1204068810": "Stop OruxMaps",
   "1252179971": "Double click to exit",
   "126322018": "Reset data",
+  "1315244644": "Power graph",
   "132426618": "Neuromuscular",
   "1324869629": "Bearing",
   "1337683137": "Power zones",
@@ -71,5 +72,6 @@
   "899961860": "Nav:Time Arrival",
   "92535431": "Normalized power",
   "931823504": "Avg power",
-  "935397588": "Avg speed"
+  "935397588": "Avg speed",
+  "93883979": "Power all"
 }
