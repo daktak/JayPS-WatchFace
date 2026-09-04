@@ -5,6 +5,7 @@
 #include "../communication.h"
 #include "../screen_config.h"
 #include "../heartrate.h"
+#include "../power.h"
 #include "screen_config.h"
 #ifdef ENABLE_LOCALIZE
   #include "../localize.h"
@@ -19,7 +20,7 @@
 
 static Window *window;
 static SimpleMenuLayer *menu_layer;
-static SimpleMenuSection menu_sections[5]; // Sections
+static SimpleMenuSection menu_sections[6]; // Sections
 static SimpleMenuItem menu_section0_items[3]; // Section Actions
 #ifdef ENABLE_ORUXMAPS
   static SimpleMenuItem menu_section_orux_items[3]; // Section OruxMap
@@ -29,6 +30,9 @@ static SimpleMenuItem menu_section0_items[3]; // Section Actions
   char heartzones_titles[NB_HR_ZONES+1][20];
   char heartzones_subtitles[NB_HR_ZONES+1][20];
 #endif
+  static SimpleMenuItem menu_section_powerzones_items[NB_POWER_ZONES];
+  char powerzones_titles[NB_POWER_ZONES+1][20];
+  char powerzones_subtitles[NB_POWER_ZONES+1][20];
 #if MENU_HELP_BUTTONS
   static SimpleMenuItem menu_section1_items[4]; // Section Buttons
 #endif
@@ -162,6 +166,30 @@ void init_settings_window()
     };
   }
 #endif
+  // Section "Power zones" (Coggan, no vibration)
+  if (ftp > 0) {
+    i = 0;
+    char buffer_duration[10];
+    for (int j = 1; j <= NB_POWER_ZONES; j++) {
+      snprintf(powerzones_titles[j], sizeof(powerzones_titles[j]), "%d - %s", j, power_zones_name[j]);
+      if (power_zones_duration[j] < 60) snprintf(buffer_duration, sizeof(buffer_duration), "%02d\"", power_zones_duration[j]);
+      else snprintf(buffer_duration, sizeof(buffer_duration), "%d'%02d\"", power_zones_duration[j] / 60, power_zones_duration[j] % 60);
+      uint16_t lo = power_zones_min_w(j);
+      uint16_t hi = (j == NB_POWER_ZONES) ? 9999 : power_zones_min_w(j+1) - 1;
+      if (j == 1) lo = 0;
+      if (j == NB_POWER_ZONES) snprintf(powerzones_subtitles[j], sizeof(powerzones_subtitles[j]), "[%d+] : %s", lo, buffer_duration);
+      else snprintf(powerzones_subtitles[j], sizeof(powerzones_subtitles[j]), "[%d-%d] : %s", lo, hi, buffer_duration);
+      menu_section_powerzones_items[i++] = (SimpleMenuItem){
+        .title = powerzones_titles[j],
+        .subtitle = powerzones_subtitles[j],
+      };
+    }
+    menu_sections[s++] = (SimpleMenuSection){
+      .title = _("Power zones"),
+      .items = menu_section_powerzones_items,
+      .num_items = ARRAY_LENGTH(menu_section_powerzones_items)
+    };
+  }
 #if MENU_HELP_BUTTONS
     // Section "Buttons"
     i = 0;

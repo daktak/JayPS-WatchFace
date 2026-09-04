@@ -8,6 +8,7 @@
 #include "screen_config.h"
 #include "graph.h"
 #include "heartrate.h"
+#include "power.h"
 #include "navigation.h"
 #include "screen_data.h"
 #ifdef PBL_HEALTH
@@ -78,7 +79,7 @@ void communication_init() {
   app_message_register_inbox_dropped(communication_in_dropped_callback);
 #endif
   app_message_open(
-      // size_inbound MSG_LOCATION_DATA_V3:24 bytes, MSG_NAVIGATION:90 bytes + few "small" keys (MSG_HR_MAX: 2 bytes, MSG_BATTERY_LEVEL: 1 int)
+      // size_inbound MSG_LOCATION_DATA_V3:24 bytes, MSG_NAVIGATION:90 bytes + few "small" keys (MSG_HR_MAX: 2 bytes, MSG_FTP: 2 bytes, MSG_BATTERY_LEVEL: 1 int)
       200,
 
       // size_outbound
@@ -465,6 +466,7 @@ void communication_in_received_callback(DictionaryIterator *iter, void *context)
             GET_DATA(s_gpsdata.normpower, BYTE_NPPWR30);
             if (s_gpsdata.power != 0) {
               snprintf(s_data.power, sizeof(s_data.power), "%u", s_gpsdata.power);
+              if (ftp != 0) power_new_data(s_gpsdata.power);
             } else {
               strcpy(s_data.power, "-");
             }
@@ -574,6 +576,11 @@ void communication_in_received_callback(DictionaryIterator *iter, void *context)
           GET_DATA(heartrate_max, 0);
           GET_DATA(heartrate_zones_notification_mode, 1);
           LOG_INFO("heartrate_max=%d mode=%d", heartrate_max, heartrate_zones_notification_mode);
+          break;
+
+        case MSG_FTP:
+          GET_DATA_UINT16(ftp, 0);
+          LOG_INFO("ftp=%d", ftp);
           break;
 
         case MSG_HR_MONITOR_ENABLE:

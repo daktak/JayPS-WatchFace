@@ -16,6 +16,7 @@
   #include "../localize.h"
 #endif
 #include "../heartrate.h"
+#include "../power.h"
 
 // forward declarations
 void topbar_layer_init(Window* window);
@@ -28,6 +29,7 @@ void _ovl_init() {
   locale_init();
 #endif
   heartrate_init();
+  power_init();
   s_gpsdata.heartrate = 255; // no data at startup
   bg_color_data_main = BG_COLOR_DATA_MAIN;
 
