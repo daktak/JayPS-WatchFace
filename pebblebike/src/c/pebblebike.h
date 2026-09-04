@@ -30,6 +30,7 @@ enum {
   MSG_CONFIG = 0x28,
   MSG_HR_MAX = 0x29,
   MSG_FTP = 0x2C,
+  MSG_INDOOR = 0x2D,
   MSG_NAVIGATION = 0x31,
   MSG_HEARTRATE_PEBBLE = 0x2A,
   MSG_HR_MONITOR_ENABLE = 0x2B,
@@ -345,6 +346,7 @@ extern LiveData s_live;
 extern bool title_instead_of_units;
 extern GColor bg_color_data_main;
 extern bool need_launch_config;
+extern bool is_indoor;
 
 void change_units(uint8_t units, bool first_time);
 void change_state(uint8_t state);

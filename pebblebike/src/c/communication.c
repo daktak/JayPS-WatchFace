@@ -79,7 +79,7 @@ void communication_init() {
   app_message_register_inbox_dropped(communication_in_dropped_callback);
 #endif
   app_message_open(
-      // size_inbound MSG_LOCATION_DATA_V3:24 bytes, MSG_NAVIGATION:90 bytes + few "small" keys (MSG_HR_MAX: 2 bytes, MSG_FTP: 2 bytes, MSG_BATTERY_LEVEL: 1 int)
+      // size_inbound MSG_LOCATION_DATA_V3:24 bytes, MSG_NAVIGATION:90 bytes + few "small" keys (MSG_HR_MAX: 2 bytes, MSG_FTP: 2 bytes, MSG_INDOOR: 1, MSG_BATTERY_LEVEL: 1 int)
       200,
 
       // size_outbound
@@ -581,6 +581,16 @@ void communication_in_received_callback(DictionaryIterator *iter, void *context)
         case MSG_FTP:
           GET_DATA_UINT16(ftp, 0);
           LOG_INFO("ftp=%d", ftp);
+          break;
+
+        case MSG_INDOOR:
+          GET_DATA(is_indoor, 0);
+          LOG_INFO("is_indoor=%d", is_indoor);
+          if (is_indoor && s_data.page_number == PAGE_MAP) {
+            s_data.page_number = PAGE_DATA;
+            s_data.data_subpage = SUBPAGE_A;
+            update_screens();
+          }
           break;
 
         case MSG_HR_MONITOR_ENABLE:

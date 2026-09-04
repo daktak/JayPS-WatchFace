@@ -85,7 +85,13 @@ void next_page(bool rotation) {
     }
   }
 #endif
+  if (is_indoor && s_data.page_number == PAGE_MAP) {
+    s_data.page_number++;
+  }
   if (s_data.page_number >= NUMBER_OF_PAGES) {
+    s_data.page_number = PAGE_DATA;
+  }
+  if (is_indoor && s_data.page_number == PAGE_MAP) {
     s_data.page_number = PAGE_DATA;
   }
 #ifdef ENABLE_ROTATION
