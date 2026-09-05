@@ -34,7 +34,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // force functions, even in PRODUCTION
+#ifndef PBL_PLATFORM_APLITE
 #define ENABLE_LOCALIZE
+#endif
 #define ENABLE_NAVIGATION
 #define ENABLE_MAP_SKIP_POINT_OUTSIDE
 

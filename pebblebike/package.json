@@ -34,7 +34,15 @@
         {
           "type": "font",
           "name": "FONT_ROBOTO_BOLD_16",
-          "file": "fonts/Roboto-Bold.ttf"
+          "file": "fonts/Roboto-Bold.ttf",
+          "targetPlatforms": [
+            "basalt",
+            "chalk",
+            "diorite",
+            "emery",
+            "flint",
+            "gabbro"
+          ]
         },
         {
           "characterRegex": "[0-9.:-]",
@@ -45,7 +53,15 @@
         {
           "type": "font",
           "name": "FONT_ROBOTO_BOLD_20",
-          "file": "fonts/Roboto-Bold.ttf"
+          "file": "fonts/Roboto-Bold.ttf",
+          "targetPlatforms": [
+            "basalt",
+            "chalk",
+            "diorite",
+            "emery",
+            "flint",
+            "gabbro"
+          ]
         },
         {
           "characterRegex": "[0-9.:-]",

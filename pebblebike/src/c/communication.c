@@ -78,6 +78,9 @@ void communication_init() {
 #ifdef ENABLE_DEBUG
   app_message_register_inbox_dropped(communication_in_dropped_callback);
 #endif
+#ifdef PBL_PLATFORM_APLITE
+  app_message_open(124, 50);
+#else
   app_message_open(
       // size_inbound MSG_LOCATION_DATA_V3:24 bytes, MSG_NAVIGATION:90 bytes + few "small" keys (MSG_HR_MAX: 2 bytes, MSG_FTP: 2 bytes, MSG_INDOOR: 1, MSG_BATTERY_LEVEL: 1 int)
       200,
@@ -86,6 +89,7 @@ void communication_init() {
       // biggest message is send_version, with MSG_VERSION_PEBBLE(int) and MSG_CONFIG (10 bytes)
       50
   );
+#endif
 }
 void communication_deinit() {
   if (reset_data_timer) {
