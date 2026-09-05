@@ -67,6 +67,12 @@
   #define ENABLE_ORUXMAPS
 #endif
 
+#ifdef PBL_PLATFORM_APLITE
+  #undef PBL_HEALTH
+  #undef HAS_TWO_HRM
+  #undef ENABLE_INTERNAL_HRM
+#endif
+
 
 #if defined(PBL_PLATFORM_DIORITE) || defined(PBL_PLATFORM_EMERY)
   #define HAS_TWO_HRM
