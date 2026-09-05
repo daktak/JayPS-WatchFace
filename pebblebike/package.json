@@ -51,24 +51,56 @@
           "characterRegex": "[0-9.:-]",
           "type": "font",
           "name": "FONT_ROBOTO_BOLD_38",
-          "file": "fonts/Roboto-Bold.ttf"
+          "file": "fonts/Roboto-Bold.ttf",
+          "targetPlatforms": [
+            "basalt",
+            "chalk",
+            "diorite",
+            "emery",
+            "flint",
+            "gabbro"
+          ]
         },
         {
           "type": "font",
           "name": "FONT_ROBOTO_BOLD_26",
-          "file": "fonts/Roboto-Bold.ttf"
+          "file": "fonts/Roboto-Bold.ttf",
+          "targetPlatforms": [
+            "basalt",
+            "chalk",
+            "diorite",
+            "emery",
+            "flint",
+            "gabbro"
+          ]
         },
         {
           "characterRegex": "[0-9.:-]",
           "type": "font",
           "name": "FONT_ROBOTO_BOLD_28",
-          "file": "fonts/Roboto-Bold.ttf"
+          "file": "fonts/Roboto-Bold.ttf",
+          "targetPlatforms": [
+            "basalt",
+            "chalk",
+            "diorite",
+            "emery",
+            "flint",
+            "gabbro"
+          ]
         },
         {
           "characterRegex": "[0-9.:-]",
           "type": "font",
           "name": "FONT_ROBOTO_BOLD_72",
-          "file": "fonts/Roboto-Bold.ttf"
+          "file": "fonts/Roboto-Bold.ttf",
+          "targetPlatforms": [
+            "basalt",
+            "chalk",
+            "diorite",
+            "emery",
+            "flint",
+            "gabbro"
+          ]
         },
         {
           "menuIcon": true,
