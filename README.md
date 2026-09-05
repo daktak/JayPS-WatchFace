@@ -6,7 +6,7 @@ KayPS is a GPS cycle computer for your Pebble smart watch, this simple app uses 
 
 Licensed under [MIT License](http://opensource.org/licenses/MIT)
 
-![](screenshots/emery.png?raw=true)
+![](screenshots/emery.gif?raw=true)
 
 ## Building
 
